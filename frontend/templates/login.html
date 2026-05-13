@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+ 
+
+    <div class="auth-body">
+
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">
+                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="AgriCrop Logo" height="40">
+                <span>AgriCrop</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/register">Register</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+        <div class="login-container">
+            <div class="login-row">
+                <div class="login-left fade-in">
+                    <h2><i class="bi bi-leaf"></i> AgriCrop</h2>
+                    <p>Intelligent Crop Recommendation System</p>
+                    <p style="font-size: 0.95rem; opacity: 0.8;">Get personalized crop recommendations based on soil and environmental conditions.</p>
+                </div>
+
+                <div class="login-right fade-in-up">
+                    <h3>Login</h3>
+
+                    {% if error %}
+                    <div class="alert alert-danger">
+                        <i class="bi bi-exclamation-circle"></i> {{ error }}
+                    </div>
+                    {% endif %}
+
+                    <form method="POST" action="/login">
+                        <div class="floating-label-group">
+                            <input type="text" id="username" name="username" required placeholder=" ">
+                            <label for="username"><i class="bi bi-person"></i> Username or Email</label>
+                        </div>
+
+                        <div class="floating-label-group">
+                            <div class="password-group" style="position: relative;">
+                                <input type="password" id="password" name="password" required placeholder=" " style="padding-right: 50px;">
+                                <label for="password"><i class="bi bi-lock"></i> Password</label>
+                                <button type="button" class="toggle-password" onclick="togglePassword('password')" style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; color: var(--gray-500);">
+                                    <i class="bi bi-eye" id="password-icon"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="remember-forgot">
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="remember" name="remember" style="width: auto; cursor: pointer;">
+                                <label for="remember" style="margin: 0; cursor: pointer;">Remember me</label>
+                            </div>
+                            <a href="/forgot-password" style="color: var(--primary); text-decoration: none; font-weight: 500;">Forgot Password?</a>
+                        </div>
+
+                        <button type="submit" class="btn-login ripple">
+                            <i class="bi bi-box-arrow-in-right"></i> Login
+                        </button>
+                    </form>
+
+                    <div class="register-link">
+                        Don't have an account? <a href="/register">Register here</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function togglePassword(fieldId) {
+            const passwordField = document.getElementById(fieldId);
+            const iconElement = document.getElementById(fieldId + '-icon');
+            
+            if (passwordField.type === 'password') {
+                passwordField.type = 'text';
+                iconElement.classList.remove('bi-eye');
+                iconElement.classList.add('bi-eye-slash');
+            } else {
+                passwordField.type = 'password';
+                iconElement.classList.remove('bi-eye-slash');
+                iconElement.classList.add('bi-eye');
+            }
+        }
+    </script>
+</body>
+</html>

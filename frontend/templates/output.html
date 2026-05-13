@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crop Recommendation Result</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/dashboard">
+                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="AgriCrop Logo" height="40">
+                <span>AgriCrop</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/dashboard"><i class="bi bi-sliders"></i> Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/profile"><i class="bi bi-person"></i> Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout"><i class="bi bi-box-arrow-right"></i> Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1 class="title"><i class="bi bi-leaf-fill" style="color: #2ecc71;"></i> Your Crop Recommendation</h1>
+            <p class="subtitle">Based on your soil and environmental parameters</p>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Loading State -->
+            <div id="loadingState" class="loading-state">
+                <div class="spinner"></div>
+                <p>Processing your recommendation...</p>
+            </div>
+
+            <!-- Recommendation Result -->
+            <div id="resultContainer" class="result-container" style="display: none;">
+                
+                <!-- Primary Recommendation -->
+                <section class="primary-recommendation">
+                    <h2 class="section-title"><i class="bi bi-check-circle-fill" style="color: #2ecc71;"></i> Primary Recommendation</h2>
+                    
+                    <div class="crop-card primary-card">
+                        <div class="crop-image-wrapper">
+                            <img id="primaryCropImage" src="" alt="Crop Image" class="crop-image">
+                        </div>
+                        
+                        <div class="crop-info">
+                            <h3 id="primaryCropName" class="crop-name"></h3>
+                            <p id="primaryCropDescription" class="crop-description"></p>
+                            
+                            <!-- Confidence Meter -->
+                            <div class="confidence-section">
+                                <label class="confidence-label">Confidence Score</label>
+                                <div class="confidence-bar-wrapper">
+                                    <div class="confidence-bar">
+                                        <div id="confidenceFill" class="confidence-fill"></div>
+                                    </div>
+                                    <span id="confidencePercent" class="confidence-percent">0%</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Recommendation Reasoning -->
+                            <div class="reasoning-section">
+                                <h4>Why This Crop?</h4>
+                                <p id="reasoningText" class="reasoning-text"></p>
+                                <p id="seasonalNoteText" class="seasonal-note"></p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Alternative Recommendations -->
+                <section class="alternative-recommendations">
+                    <h2 class="section-title"><i class="bi bi-lightbulb-fill" style="color: #f39c12;"></i> Alternative Options</h2>
+                    
+                    <div id="alternativesContainer" class="alternatives-grid">
+                        <!-- Alternatives will be inserted here -->
+                    </div>
+                </section>
+
+                <!-- Feedback Section -->
+                <section class="feedback-section">
+                    <h2 class="section-title"><i class="bi bi-chat-dots-fill" style="color: #3498db;"></i> Feedback</h2>
+                    
+                    <form id="feedbackForm" class="feedback-form">
+                        <p class="feedback-prompt">How accurate is this recommendation?</p>
+                        
+                        <div class="feedback-options">
+                            <label class="radio-option">
+                                <input type="radio" name="accuracy" value="accurate" required>
+                                <span class="radio-label">✅ Accurate</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="accuracy" value="somewhat_accurate">
+                                <span class="radio-label">⚠️ Somewhat Accurate</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="accuracy" value="inaccurate">
+                                <span class="radio-label">❌ Inaccurate</span>
+                            </label>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="feedbackComment" class="form-label">Comments (Optional)</label>
+                            <textarea 
+                                id="feedbackComment" 
+                                name="comment" 
+                                placeholder="Please share your experience or suggestions..."
+                                rows="4"
+                            ></textarea>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">Submit Feedback</button>
+                        </div>
+                    </form>
+                    
+                    <div id="feedbackMessage" class="feedback-message" style="display: none;"></div>
+                </section>
+
+                <!-- Action Buttons -->
+                <div class="result-actions">
+                    <button class="btn btn-secondary" onclick="window.location.href='/'">
+                        ← New Recommendation
+                    </button>
+                    <button class="btn btn-secondary" onclick="window.print()">
+                        🖨️ Print Result
+                    </button>
+                </div>
+            </div>
+
+            <!-- Error State -->
+            <div id="errorState" class="error-state" style="display: none;">
+                <h2>❌ Error Processing Recommendation</h2>
+                <p id="errorMessage"></p>
+                <button class="btn btn-primary" onclick="window.location.href='/'">
+                    ← Go Back
+                </button>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>AgriCrop - Expert System for Crop Recommendation | Powered by AI & Machine Learning</p>
+        </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/output.js') }}"></script>
+</body>
+</html>

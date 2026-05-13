@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>About Us - Crop Recommendation Expert System</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+    <!-- Header/Navbar -->
+
+    <nav class="navbar navbar-expand-lg">
+
+        <div class="container-fluid">
+
+            <a class="navbar-brand" href="/">
+
+                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="AgriCrop Logo" height="40">
+
+                <span>AgriCrop</span>
+
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+
+                <span class="navbar-toggler-icon"></span>
+
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+
+                <ul class="navbar-nav ms-auto">
+
+                    <li class="nav-item">
+
+                        <a class="nav-link" href="/">Home</a>
+
+                    </li>
+
+                    <li class="nav-item">
+
+                        <a class="nav-link active" href="/about">About</a>
+
+                    </li>
+
+                    {% if 'user_id' not in session %}
+
+                    <li class="nav-item">
+
+                        <a class="nav-link" href="/login">Login</a>
+
+                    </li>
+
+                    <li class="nav-item">
+
+                        <a class="nav-link" href="/register">Register</a>
+
+                    </li>
+
+                    {% else %}
+
+                    <li class="nav-item dropdown">
+
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown">
+
+                            <i class="bi bi-person-circle"></i> {{ session.get('username', 'User') }}
+
+                        </a>
+
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+
+                            <li><a class="dropdown-item" href="/dashboard">Dashboard</a></li>
+
+                            <li><a class="dropdown-item" href="/profile">Profile</a></li>
+
+                            <li><hr class="dropdown-divider"></li>
+
+                            <li><a class="dropdown-item" href="/logout">Logout</a></li>
+
+                        </ul>
+
+                    </li>
+
+                    {% endif %}
+
+                </ul>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- About Header -->
+
+    <section class="about-header">
+
+        <div class="container">
+
+            <h1>About CropRecommend</h1>
+
+            <p>Revolutionizing agriculture through intelligent crop recommendations and data-driven farming decisions</p>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- Mission & Vision Section -->
+
+    <section class="mission-vision">
+
+        <div class="container">
+
+            <div class="mission-vision-grid">
+
+                <div class="mission-card">
+
+                    <h2>Our Mission</h2>
+
+                    <p>
+
+                        To empower farmers with intelligent, data-driven crop recommendations that maximize productivity, minimize costs, and promote sustainable agricultural practices. We believe technology should make farming easier and more profitable for everyone.
+
+                    </p>
+
+                </div>
+
+                <div class="vision-card">
+
+                    <h2>Our Vision</h2>
+
+                    <p>
+
+                        To create a world where every farmer, regardless of their size or location, has access to advanced agricultural intelligence. We envision a future where farming is optimized, sustainable, and economically viable for generations to come.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- Core Values Section -->
+
+    <section class="values-section">
+
+        <div class="container">
+
+            <div class="section-title">
+
+                <h2>Our Core Values</h2>
+
+                <p>Principles that guide our innovation and service</p>
+
+            </div>
+
+            <div class="values-grid">
+
+                <div class="value-card">
+
+                    <div class="value-icon">
+
+                        <i class="bi bi-lightbulb-fill"></i>
+
+                    </div>
+
+                    <h3>Innovation</h3>
+
+                    <p>Continuously advancing our technology to provide cutting-edge solutions for modern agriculture.</p>
+
+                </div>
+
+                <div class="value-card">
+
+                    <div class="value-icon">
+
+                        <i class="bi bi-puzzle-fill"></i>
+
+                    </div>
+
+                    <h3>Accuracy</h3>
+
+                    <p>Precision in every recommendation, backed by scientific research and real-world data.</p>
+
+                </div>
+
+                <div class="value-card">
+
+                    <div class="value-icon">
+
+                        <i class="bi bi-heart-fill"></i>
+
+                    </div>
+
+                    <h3>Farmer-Centric</h3>
+
+                    <p>Every decision we make is centered around making farmers' lives easier and more profitable.</p>
+
+                </div>
+
+                <div class="value-card">
+
+                    <div class="value-icon">
+
+                        <i class="bi bi-globe-fill"></i>
+
+                    </div>
+
+                    <h3>Sustainability</h3>
+
+                    <p>Promoting eco-friendly farming practices that protect our planet for future generations.</p>
+
+                </div>
+
+                <div class="value-card">
+
+                    <div class="value-icon">
+
+                        <i class="bi bi-shield-check"></i>
+
+                    </div>
+
+                    <h3>Trustworthiness</h3>
+
+                    <p>Complete transparency and security in handling farmer data and recommendations.</p>
+
+                </div>
+
+                <div class="value-card">
+
+                    <div class="value-icon">
+
+                        <i class="bi bi-people-fill"></i>
+
+                    </div>
+
+                    <h3>Community</h3>
+
+                    <p>Building a supportive community of farmers sharing knowledge and experiences.</p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- Statistics Section -->
+
+    <section class="stats-section">
+
+        <div class="container">
+
+            <div class="stats-grid">
+
+                <div class="stat-item">
+
+                    <div class="stat-number">50K+</div>
+
+                    <div class="stat-label">Farmers Using Our System</div>
+
+                </div>
+
+                <div class="stat-item">
+
+                    <div class="stat-number">100M+</div>
+
+                    <div class="stat-label">Crop Recommendations Made</div>
+
+                </div>
+
+                <div class="stat-item">
+
+                    <div class="stat-number">98%</div>
+
+                    <div class="stat-label">Recommendation Accuracy</div>
+
+                </div>
+
+                <div class="stat-item">
+
+                    <div class="stat-number">$2.5B</div>
+
+                    <div class="stat-label">Increased Farmer Revenue</div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- Technology Stack Section -->
+
+    <section class="technology-section">
+
+        <div class="container">
+
+            <div class="section-title">
+
+                <h2>Our Technology Stack</h2>
+
+                <p>Built with the latest and most reliable technologies</p>
+
+            </div>
+
+            <div class="tech-grid">
+
+                <div class="tech-item">
+
+                    <i class="bi bi-cpu-fill"></i>
+
+                    <h4>Machine Learning</h4>
+
+                </div>
+
+                <div class="tech-item">
+
+                    <i class="bi bi-database-fill"></i>
+
+                    <h4>Big Data Analytics</h4>
+
+                </div>
+
+                <div class="tech-item">
+
+                    <i class="bi bi-cloud-check-fill"></i>
+
+                    <h4>Cloud Infrastructure</h4>
+
+                </div>
+
+                <div class="tech-item">
+
+                    <i class="bi bi-shield-lock-fill"></i>
+
+                    <h4>Data Security</h4>
+
+                </div>
+
+                <div class="tech-item">
+
+                    <i class="bi bi-graph-up-arrow"></i>
+
+                    <h4>Real-time Analytics</h4>
+
+                </div>
+
+                <div class="tech-item">
+
+                    <i class="bi bi-globe-americas"></i>
+
+                    <h4>Global Weather API</h4>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- Team Section -->
+
+    <section class="team-section">
+
+        <div class="container">
+
+            <div class="section-title">
+
+                <h2>Our Expert Team</h2>
+
+                <p>Dedicated professionals committed to your farming success</p>
+
+            </div>
+
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="team-member-image"><img src="../static/images/Rajan.jpg" alt="Rajan Kumar Thakur" style="width: 100%; height: 100%; object-fit: cover;"></div>
+                    <div class="team-member-info">
+                        <h3>Rajan Kumar Thakur</h3>
+                        <div class="position">Chief Data Scientist</div>
+                        <p>PhD in Agricultural AI with 15+ years of research experience in crop optimization.</p>
+                    </div>
+                </div>
+                <div class="team-member">
+                     <div class="team-member-image"><img src="/frontend/static/images/Bibek.jpeg" alt="Bibek Kumar Das" style="width: 100%; height: 100%; object-fit: cover;"></div>
+                    <div class="team-member-info">
+                        <h3>Bibek Kumar Das</h3>
+                        <div class="position">Lead Agricultural Expert</div>
+                        <p>Agronomist with extensive field experience and passion for sustainable farming.</p>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="team-member-image"><img src="/frontend/static/images/Ashish.jpeg" alt="Ashish Kumar Mandal" style="width: 100%; height: 100%; object-fit: cover;"></div>
+                    <div class="team-member-info">
+                        <h3>Ashish Kumar Mandal</h3>
+                        <div class="position">CTO & Founder</div>
+                        <p>Tech visionary dedicated to bringing cutting-edge technology to agriculture.</p>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="team-member-image"><img src="/frontend/static/images/Nabin.jpeg" alt="Nabin Singh" style="width: 100%; height: 100%; object-fit: cover;"></div>
+                    <div class="team-member-info">
+                        <h3>Nabin Singh</h3>
+                        <div class="position">Customer Success Manager</div>
+                        <p>Passionate about helping farmers achieve their agricultural goals and dreams.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Achievements Section -->
+
+    <section class="achievements-section">
+
+        <div class="container">
+
+            <div class="section-title">
+
+                <h2>Our Achievements</h2>
+
+                <p>Milestones in our journey of innovation</p>
+
+            </div>
+
+            <div class="achievements-grid">
+
+                <div class="achievement-card">
+
+                    <h3>🏆 Innovation Award 2024</h3>
+
+                    <p>Recognized as the best agricultural technology solution by the Global Agricultural Tech Association.</p>
+
+                </div>
+
+                <div class="achievement-card">
+
+                    <h3>🌟 ISO Certified</h3>
+
+                    <p>Achieved ISO 9001 and ISO 27001 certifications for quality management and information security.</p>
+
+                </div>
+
+                <div class="achievement-card">
+
+                    <h3>🚀 Rapid Growth</h3>
+
+                    <p>Expanded from 5 countries to 45 countries in just 3 years, helping millions of farmers.</p>
+
+                </div>
+
+                <div class="achievement-card">
+
+                    <h3>🔬 Research Partner</h3>
+
+                    <p>Collaboration with top agricultural universities for continuous research and improvement.</p>
+
+                </div>
+
+                <div class="achievement-card">
+
+                    <h3>💚 Sustainability Leader</h3>
+
+                    <p>Recognized for reducing carbon footprint through optimized farming recommendations.</p>
+
+                </div>
+
+                <div class="achievement-card">
+
+                    <h3>📱 Multi-Platform</h3>
+
+                    <p>Available on web, mobile (iOS & Android), and integrated with IoT devices.</p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- CTA Section -->
+
+    <section style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 60px 20px; text-align: center; color: white;">
+
+        <div class="container">
+
+            <h2 style="font-size: 2.2rem; margin-bottom: 20px; font-weight: 700;">Join Our Growing Community</h2>
+
+            <p style="font-size: 1.1rem; margin-bottom: 30px; opacity: 0.95;">Start getting personalized crop recommendations today</p>
+
+            {% if 'user_id' not in session %}
+
+            <a href="/register" style="display: inline-block; padding: 12px 35px; background: white; color: #667eea; border-radius: 50px; text-decoration: none; font-weight: 600; transition: all 0.3s ease; margin: 0 10px;">Get Started Now</a>
+
+            {% else %}
+
+            <a href="/dashboard" style="display: inline-block; padding: 12px 35px; background: white; color: #667eea; border-radius: 50px; text-decoration: none; font-weight: 600; transition: all 0.3s ease; margin: 0 10px;">Go to Dashboard</a>
+
+            {% endif %}
+
+        </div>
+
+    </section>
+
+
+
+    <!-- Footer -->
+
+    <footer class="footer">
+
+        <div class="container">
+
+            <div class="footer-content">
+
+                <div class="footer-section">
+
+                    <h5>About AgriCrop</h5>
+
+                    <p>An intelligent crop recommendation system designed to help farmers make data-driven decisions for optimal farming outcomes.</p>
+
+                </div>
+
+                <div class="footer-section">
+
+                    <h5>Quick Links</h5>
+
+                    <ul class="footer-links">
+
+                        <li><a href="/">Home</a></li>
+
+                        <li><a href="/about">About</a></li>
+
+                        <li><a href="/#features">Features</a></li>
+
+                        <li><a href="/#contact">Contact</a></li>
+
+                    </ul>
+
+                </div>
+
+                <div class="footer-section">
+
+                    <h5>Resources</h5>
+
+                    <ul class="footer-links">
+
+                        <li><a href="#blog">Blog</a></li>
+
+                        <li><a href="#guide">User Guide</a></li>
+
+                        <li><a href="#faq">FAQ</a></li>
+
+                        <li><a href="#docs">Documentation</a></li>
+
+                    </ul>
+
+                </div>
+
+                <div class="footer-section">
+
+                    <h5>Follow Us</h5>
+
+                    <div class="social-links">
+
+                        <a href="#facebook" class="social-link"><i class="bi bi-facebook"></i></a>
+
+                        <a href="#twitter" class="social-link"><i class="bi bi-twitter"></i></a>
+
+                        <a href="#instagram" class="social-link"><i class="bi bi-instagram"></i></a>
+
+                        <a href="#linkedin" class="social-link"><i class="bi bi-linkedin"></i></a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="footer-bottom">
+
+                <p>&copy; 2026 AgriCrop. All rights reserved.</p>
+
+                <p>Designed and Developed by Rajan Kumar Thakur, Bibek Kumar Das, Ashish Kumar Mandal, and Nabin Singh.</p>
+
+                <div class="footer-legal">
+
+                    <a href="#privacy">Privacy Policy</a> | 
+
+                    <a href="#terms">Terms of Service</a> | 
+
+                    
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
+

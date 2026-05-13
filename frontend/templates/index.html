@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crop Recommendation System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <!-- Toast Notifications Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Header/Navbar -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">
+                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="AgriCrop Logo" height="40">
+                <span>AgriCrop</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#features">Features</a>
+                    </li>
+                    {% if 'user_id' not in session %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/register">Register</a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-person-circle"></i> {{ session.get('username', 'User') }}
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                            <li><a class="dropdown-item" href="/dashboard">Dashboard</a></li>
+                            <li><a class="dropdown-item" href="/profile">Profile</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                        </ul>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <canvas id="heroCanvas" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none;"></canvas>
+        <div class="hero-content" style="position: relative; z-index: 2;">
+            <h1>Smart Crop Recommendation System</h1>
+            <p>Optimize your farming with AI-powered crop recommendations based on soil, climate, and your land characteristics. Make data-driven decisions for maximum yield and sustainability.</p>
+            <div class="hero-buttons">
+                {% if 'user_id' not in session %}
+                <a href="/register" class="btn-hero btn-primary-hero animate-fade-in ripple glow">Get Started Free</a>
+                <a href="/about" class="btn-hero btn-secondary-hero animate-fade-in ripple">Learn More</a>
+                {% else %}
+                <a href="/dashboard" class="btn-hero btn-primary-hero animate-fade-in ripple glow">Go to Dashboard</a>
+                <a href="/about" class="btn-hero btn-secondary-hero animate-fade-in ripple">About Us</a>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section" id="features" style="background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(248,249,250,0.95) 100%), url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80'); background-size: cover; background-position: center; background-attachment: fixed;">
+        <div class="container">
+            <div class="section-header">
+                <h2>Key Features</h2>
+                <p>Our system provides comprehensive crop recommendations with advanced analysis</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card fade-in-up">
+                    <div class="feature-icon">
+                        <i class="bi bi-lightning-charge-fill"></i>
+                    </div>
+                    <h3>AI-Powered Analysis</h3>
+                    <p>Advanced machine learning algorithms analyze your soil properties and environmental conditions to recommend the best crops for your farm.</p>
+                </div>
+                <div class="feature-card fade-in-up" style="animation-delay: 0.1s;">
+                    <div class="feature-icon">
+                        <i class="bi bi-bar-chart-fill"></i>
+                    </div>
+                    <h3>Detailed Analytics</h3>
+                    <p>Get comprehensive data about crop suitability, yield predictions, and profitability analysis for informed decision-making.</p>
+                </div>
+                <div class="feature-card fade-in-up" style="animation-delay: 0.2s;">
+                    <div class="feature-icon">
+                        <i class="bi bi-cloud-arrow-down-fill"></i>
+                    </div>
+                    <h3>Weather Integration</h3>
+                    <p>Real-time weather data integration helps in accurate crop selection based on current and predicted climate patterns.</p>
+                </div>
+                <div class="feature-card fade-in-up" style="animation-delay: 0.3s;">
+                    <div class="feature-icon">
+                        <i class="bi bi-file-text-fill"></i>
+                    </div>
+                    <h3>Detailed Reports</h3>
+                    <p>Generate comprehensive reports with recommendations, historical data, and personalized insights for your farming operations.</p>
+                </div>
+                <div class="feature-card fade-in-up" style="animation-delay: 0.4s;">
+                    <div class="feature-icon">
+                        <i class="bi bi-shield-check-fill"></i>
+                    </div>
+                    <h3>Secure & Reliable</h3>
+                    <p>Your farm data is encrypted and securely stored. Get consistent, reliable recommendations you can trust.</p>
+                </div>
+                <div class="feature-card fade-in-up" style="animation-delay: 0.5s;">
+                    <div class="feature-icon">
+                        <i class="bi bi-person-heart"></i>
+                    </div>
+                    <h3>Expert Support</h3>
+                    <p>Access expert guidance and continuous support to help you maximize your farming efficiency and profitability.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="benefits-section" style="background: linear-gradient(135deg, rgba(46,204,113,0.05) 0%, rgba(39,174,96,0.1) 100%), url('https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80'); background-size: cover; background-position: center; background-attachment: fixed;">
+        <div class="container">
+            <div class="section-header">
+                <h2>Why Choose Our System?</h2>
+                <p>Transform your farming with data-driven decisions</p>
+            </div>
+            <div class="benefits-grid">
+                <div class="benefit-item slide-in" style="animation-delay: 0.1s;">
+                    <div class="benefit-icon">
+                        <i class="bi bi-check2-circle"></i>
+                    </div>
+                    <div>
+                        <h4>Increased Yield</h4>
+                        <p>Recommendations tailored to your specific conditions maximize crop productivity</p>
+                    </div>
+                </div>
+                <div class="benefit-item slide-in" style="animation-delay: 0.2s;">
+                    <div class="benefit-icon">
+                        <i class="bi bi-check2-circle"></i>
+                    </div>
+                    <div>
+                        <h4>Cost Reduction</h4>
+                        <p>Save resources by choosing crops that thrive in your soil and climate</p>
+                    </div>
+                </div>
+                <div class="benefit-item slide-in" style="animation-delay: 0.3s;">
+                    <div class="benefit-icon">
+                        <i class="bi bi-check2-circle"></i>
+                    </div>
+                    <div>
+                        <h4>Risk Mitigation</h4>
+                        <p>Make informed decisions backed by comprehensive analysis and historical data</p>
+                    </div>
+                </div>
+                <div class="benefit-item slide-in" style="animation-delay: 0.4s;">
+                    <div class="benefit-icon">
+                        <i class="bi bi-check2-circle"></i>
+                    </div>
+                    <div>
+                        <h4>Sustainability</h4>
+                        <p>Choose crops that maintain soil health and promote sustainable farming practices</p>
+                    </div>
+                </div>
+                <div class="benefit-item slide-in" style="animation-delay: 0.5s;">
+                    <div class="benefit-icon">
+                        <i class="bi bi-check2-circle"></i>
+                    </div>
+                    <div>
+                        <h4>Time Efficient</h4>
+                        <p>Get instant recommendations without tedious manual research</p>
+                    </div>
+                </div>
+                <div class="benefit-item slide-in" style="animation-delay: 0.6s;">
+                    <div class="benefit-icon">
+                        <i class="bi bi-check2-circle"></i>
+                    </div>
+                    <div>
+                        <h4>Always Updated</h4>
+                        <p>Latest agricultural data and machine learning models ensure accuracy</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section" id="contact" style="background: linear-gradient(135deg, rgba(46,204,113,0.9) 0%, rgba(39,174,96,0.9) 100%), url('https://images.unsplash.com/photo-1625246333195-78d9c38ad449?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80'); background-size: cover; background-position: center; background-attachment: fixed;">
+        <div class="container">
+            <h2>Ready to Transform Your Farm?</h2>
+            <p>Join thousands of farmers using smart crop recommendations</p>
+            <div class="cta-buttons">
+                {% if 'user_id' not in session %}
+                <a href="/register" class="btn-hero btn-primary-hero">Sign Up Now</a>
+                <a href="/login" class="btn-hero btn-secondary-hero">Sign In</a>
+                {% else %}
+                <a href="/dashboard" class="btn-hero btn-primary-hero">Start Recommending</a>
+                <a href="/profile" class="btn-hero btn-secondary-hero">My Profile</a>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h5><i class="bi bi-leaf-fill"></i> AgriCrop</h5>
+                <p>An intelligent crop recommendation system designed to help farmers make data-driven decisions for optimal farming outcomes and sustainable agriculture.</p>
+            </div>
+            <div class="footer-section">
+                <h5>Quick Links</h5>
+                <ul class="footer-links">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/about">About</a></li>
+                    <li><a href="#features">Features</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h5>Account</h5>
+                <ul class="footer-links">
+                    {% if 'user_id' not in session %}
+                    <li><a href="/login">Login</a></li>
+                    <li><a href="/register">Register</a></li>
+                    {% else %}
+                    <li><a href="/dashboard">Dashboard</a></li>
+                    <li><a href="/profile">Profile</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h5>Contact</h5>
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="bi bi-envelope"></i></a>
+                    <a href="#" class="social-link"><i class="bi bi-facebook"></i></a>
+                    <a href="#" class="social-link"><i class="bi bi-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 AgriCrop. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Floating Action Button -->
+    <button class="fab" onclick="scrollToTop()" title="Scroll to Top">
+        <i class="bi bi-arrow-up"></i>
+    </button>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Toast Notification System
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+            
+            const icons = {
+                success: 'bi-check-circle',
+                error: 'bi-exclamation-circle',
+                warning: 'bi-exclamation-triangle',
+                info: 'bi-info-circle'
+            };
+            
+            toast.innerHTML = `<i class="bi ${icons[type]}"></i> ${message}`;
+            container.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.remove();
+            }, 5000);
+        }
+
+        // Scroll to Top Function
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Intersection Observer for Fade-in Animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in-up, .slide-in').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+
+        // Parallax Effect for Hero Section
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            if (hero) {
+                hero.style.backgroundPositionY = `${scrolled * 0.5}px`;
+            }
+        });
+
+        // Show welcome toast on page load
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                showToast('Welcome to AgriCrop! 🌱', 'success');
+            }, 1000);
+        });
+
+        // Particle Animation for Hero Section
+        const canvas = document.getElementById('heroCanvas');
+        if (canvas) {
+            const ctx = canvas.getContext('2d');
+            let particles = [];
+            
+            function resizeCanvas() {
+                canvas.width = canvas.offsetWidth;
+                canvas.height = canvas.offsetHeight;
+            }
+            
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+            
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                    this.size = Math.random() * 3 + 1;
+                    this.speedX = Math.random() * 1 - 0.5;
+                    this.speedY = Math.random() * 1 - 0.5;
+                    this.opacity = Math.random() * 0.5 + 0.2;
+                }
+                
+                update() {
+                    this.x += this.speedX;
+                    this.y += this.speedY;
+                    
+                    if (this.x > canvas.width) this.x = 0;
+                    if (this.x < 0) this.x = canvas.width;
+                    if (this.y > canvas.height) this.y = 0;
+                    if (this.y < 0) this.y = canvas.height;
+                }
+                
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
+                    ctx.fill();
+                }
+            }
+            
+            function initParticles() {
+                particles = [];
+                for (let i = 0; i < 50; i++) {
+                    particles.push(new Particle());
+                }
+            }
+            
+            function animateParticles() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                particles.forEach(particle => {
+                    particle.update();
+                    particle.draw();
+                });
+                requestAnimationFrame(animateParticles);
+            }
+            
+            initParticles();
+            animateParticles();
+        }
+    </script>
+</body>
+</html>
