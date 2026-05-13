@@ -55,7 +55,7 @@ AgriCrop helps farmers and agricultural professionals make data-driven decisions
    ```bash
    python -m venv venv
    venv\Scripts\activate  # Windows
-   source venv/bin/activate  # macOS/Linux
+  
    ```
 
 3. **Install dependencies**

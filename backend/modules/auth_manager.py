@@ -140,7 +140,7 @@ class AuthManager:
             cursor = conn.cursor(pymysql.cursors.DictCursor)
             
             cursor.execute(
-                "SELECT id, username, email, first_name, last_name, location, farm_size, soil_type, photo_url, created_at FROM users WHERE id = %s",
+                "SELECT id, username, email, first_name, last_name, location, soil_type, photo_url, created_at FROM users WHERE id = %s",
                 (user_id,)
             )
             user = cursor.fetchone()
@@ -154,7 +154,7 @@ class AuthManager:
             cursor.close()
             conn.close()
     
-    def update_user_profile(self, user_id, first_name=None, last_name=None, location=None, farm_size=None, soil_type=None, photo_url=None):
+    def update_user_profile(self, user_id, first_name=None, last_name=None, location=None, soil_type=None, photo_url=None):
         """Update user profile information"""
         try:
             conn = self._get_connection()
@@ -175,9 +175,9 @@ class AuthManager:
                 updates.append("location = %s")
                 params.append(location)
             
-            if farm_size is not None:
-                updates.append("farm_size = %s")
-                params.append(farm_size)
+          #  if farm_size is not None:
+           #     updates.append("farm_size = %s")
+            #    params.append(farm_size)
             
             if soil_type is not None:
                 updates.append("soil_type = %s")
