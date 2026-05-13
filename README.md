@@ -2,11 +2,11 @@
 
 A modern web-based Expert System that provides high-accuracy crop recommendations using AI, machine learning, and expert system logic.
 
-## 🌾 Overview
+##  Overview
 
 AgriCrop helps farmers and agricultural professionals make data-driven decisions by analyzing soil nutrients (N, P, K), environmental factors (temperature, humidity, rainfall), and soil quality (pH) to recommend the most suitable crops for their specific conditions.
 
-### ✨ Key Features
+###  Key Features
 
 - **AI-Powered Analysis**: Forward Chaining inference engine with ML classification
 - **Machine Learning**: Naive Bayes and Decision Tree ensemble models
@@ -17,7 +17,7 @@ AgriCrop helps farmers and agricultural professionals make data-driven decisions
 - **Feedback System**: Continuous improvement through user feedback
 - **20+ Crops**: Comprehensive database with detailed growing conditions
 
-## 🏗️ System Architecture
+##  System Architecture
 
 ### Backend Modules
 
@@ -37,7 +37,7 @@ AgriCrop helps farmers and agricultural professionals make data-driven decisions
 - **Profile Page**: User account management and history
 - **Responsive Design**: Mobile-friendly across all devices
 
-## 🚀 Quick Start
+##  Quick Start
 
 ### Prerequisites
 
@@ -48,7 +48,7 @@ AgriCrop helps farmers and agricultural professionals make data-driven decisions
 
 1. **Navigate to project directory**
    ```bash
-   cd "c:\Users\lenovo\OneDrive\Desktop\Agri cul - Copy"
+   cd "c:\Users\lenovo\OneDrive\Desktop\Agri cul"
    ```
 
 2. **Create virtual environment** (recommended)
@@ -71,7 +71,7 @@ AgriCrop helps farmers and agricultural professionals make data-driven decisions
 5. **Access the application**
    - Open browser: `http://localhost:8080`
 
-## 📊 Project Structure
+##  Project Structure
 
 ```
 Agri cul - Copy/
@@ -98,14 +98,13 @@ Agri cul - Copy/
 │       ├── css/style.css
 │       ├── js/main.js
 │       └── js/output.js
-├── docs/                   # Documentation
 ├── tests/                  # Test suite
 ├── requirements.txt
 ├── .env                    # Environment variables
 └── README.md
 ```
 
-## 🔌 API Endpoints
+##  API Endpoints
 
 ### POST /api/recommend
 Get crop recommendation based on soil and environmental parameters.
@@ -119,7 +118,7 @@ Get list of all available crops.
 ### GET /api/crop/<crop_name>
 Get detailed information about a specific crop.
 
-## 🌱 Supported Crops
+##  Supported Crops
 
 Rice, Wheat, Corn, Soybean, Cotton, Sugarcane, Potato, Tomato, Onion, Garlic, Cabbage, Carrots, Banana, Mango, Apple, Pumpkin, Cucumber, Lettuce, Chili, Peas
 
@@ -166,4 +165,4 @@ This project is part of academic coursework for BIT355CO.
 
 **Version**: 2.0  
 **Last Updated**: May 11, 2026  
-**Status**: Production Ready ✅
+**Status**: Production Ready 
